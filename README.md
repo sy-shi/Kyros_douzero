@@ -2,7 +2,16 @@
 Project for ME237 in SJTU
 
 ---
-
+#### Author Operation
+```
+$ git push origin main
+$ git pull
+```
+#### Co-Author Operation
+- Clone repo
+```
+$ git clone --depth=1 https://github.com/sy-shi/Kyros_douzero.git
+```
 - Download [**`git bash`**](https://git-scm.com/downloads)
 - initialize the project in a new folder, and configure user information
 ```
@@ -10,17 +19,17 @@ $ git init
 $ git config --global --user.name "your name"
 $ git config --global --user.email "your email"
 ```
-- Clone the repo
+- Create remote github repo association
 ```
-$ git clone --depth=1 https://github.com/sy-shi/Kyros_douzero.git
+$ git remote add origin https://github.com/sy-shi/Kyros_douzero.git
 ```
-
+- Pull contents from github repo
+```
+$ git pull origin master
+```
 - Submit **All** your update to github repo as **co-auther**
 ``` cmd
 $ git add -A
 $ git commit -m 'description of update'
 $ git push origin master
 ```
-- Pull new update from the github repo
-```
-$ git pull origin master
