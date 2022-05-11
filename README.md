@@ -4,10 +4,12 @@ Project for ME237 in SJTU
 ---
 #### Author Operation
 ```
+$ git add FILE
+$ git commit -m  'DESCRIPTION'
 $ git push origin main
 $ git pull
 ```
-#### Co-Author Operation
+#### Co-Author Operation (Unfinished)
 - Clone repo
 ```
 $ git clone --depth=1 https://github.com/sy-shi/Kyros_douzero.git
@@ -33,3 +35,9 @@ $ git add -A
 $ git commit -m 'description of update'
 $ git push origin master
 ```
+
+---
+
+## Decision Tree
+- See detail in [**`decision_tree`**](https://github.com/sy-shi/Kyros_douzero/../../../../decision_tree/readme.md)
+
