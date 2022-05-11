@@ -90,7 +90,7 @@ pip3 install -e .
 ## 训练
 假定您至少拥有一块可用的GPU，运行
 ```
-python3 train.py
+python train.py
 ```
 这会使用一块GPU训练DouZero。如果需要用多个GPU训练Douzero，使用以下参数：
 *   `--gpu_devices`: 用作训练的GPU设备名
@@ -108,11 +108,11 @@ python3 train.py --gpu_devices 0,1,2,3 --num_actor_devices 3 --num_actors 15 --t
 
 例如，用以下命令完全在CPU上运行：
 ```
-python3 train.py --actor_device_cpu --training_device cpu
+python train.py --actor_device_cpu --training_device cpu
 ```
 以下命令仅仅用CPU来跑模拟：
 ```
-python3 train.py --actor_device_cpu
+python train.py --actor_device_cpu
 ```
 
 其他定制化的训练配置可以参考以下可选项：

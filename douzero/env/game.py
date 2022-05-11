@@ -20,6 +20,9 @@ class GameEnv(object):
     def __init__(self, players):
 
         self.card_play_action_seq = []
+        self.card_play_action_landlord = []
+        self.card_play_action_landlord_down = []
+        self.card_play_action_landlord_up = []
 
         self.three_landlord_cards = None
         self.game_over = False
@@ -115,6 +118,13 @@ class GameEnv(object):
             self.acting_player_position] = action.copy()
 
         self.card_play_action_seq.append(action)
+        if self.acting_player_position == 'landlord':
+            self.card_play_action_landlord.append(action)
+        if self.acting_player_position == 'landlord_up':
+            self.card_play_action_landlord_up.append(action)
+        if self.acting_player_position == 'landlord_down':
+            self.card_play_action_landlord_down.append(action)
+
         self.update_acting_player_hand_cards(action)
 
         self.played_cards[self.acting_player_position] += action
@@ -128,12 +138,11 @@ class GameEnv(object):
                         self.three_landlord_cards.remove(card)
                 else:
                     break
-
+        # print(self.acting_player_position + "action: " + str(action))            
         self.game_done()
         if not self.game_over:
             self.get_acting_player_position()
             self.game_infoset = self.get_infoset()
-
     def get_last_move(self):
         last_move = []
         if len(self.card_play_action_seq) != 0:

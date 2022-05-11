@@ -27,6 +27,8 @@ def mp_simulate(card_play_data_list, card_play_model_path_dict, q):
         env.card_play_init(card_play_data)
         while not env.game_over:
             env.step()
+        print(env.card_play_action_seq)
+        print('playedcards:' + str(env.played_cards))
         env.reset()
 
     q.put((env.num_wins['landlord'],
@@ -80,7 +82,10 @@ def evaluate(landlord, landlord_up, landlord_down, eval_data, num_workers):
         num_farmer_wins += result[1]
         num_landlord_scores += result[2]
         num_farmer_scores += result[3]
-
+    print("num_landlord_wins: " + str(num_landlord_wins))
+    print("num_landlord_scores: " + str(num_landlord_scores))
+    print("num_farmer_wins: " + str(num_farmer_wins))
+    print("num_farmer_scores: " + str(num_farmer_scores))
     num_total_wins = num_landlord_wins + num_farmer_wins
     print('WP results:')
     print('landlord : Farmers - {} : {}'.format(num_landlord_wins / num_total_wins, num_farmer_wins / num_total_wins))
