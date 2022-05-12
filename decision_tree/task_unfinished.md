@@ -1,0 +1,4 @@
+- 对于feature1的分类器
+- 封装predict函数，要能够直接load现有训练好的模型
+- 写action_decide函数
+- 调整参数，feature等(目前出现up_left<0的分类情况)

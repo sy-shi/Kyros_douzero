@@ -2,11 +2,16 @@ from io import StringIO
 import pickle
 import numpy as np
 from feature_generator import FeatureGenerator
+from sklearn.ensemble import RandomForestRegressor
 from sklearn import tree
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 import pydotplus
 import random
+
 np.set_printoptions(threshold = np.inf)
-f = open('output.pkl','rb')   ## Your pickle file path
+f = open('output.pkl','rb')
 info = pickle.load(f)
 print(len(info))
 
@@ -30,21 +35,3 @@ for ele in info:
     feature1 = feature1_list + feature1
     feature2_list = feature2_list + feature2
 f.close()
-random.shuffle(feature2_list)
-random.shuffle(feature1_list)
-feature2_array = np.array(feature2_list)
-print(np.shape(feature2_array))
-cart = tree.DecisionTreeRegressor()
-classifier = cart.fit( feature2_array[0:100,1:27],feature2_array[0:100,0])
-y_predict = classifier.predict(feature2_array[1000:1030,1:27])
-ave_err = ((np.array(y_predict)-feature2_array[1000:1030,0])/feature2_array[1000:1030,0]).mean()
-print(y_predict)
-print(feature2_array[1000:1030,0])
-print(ave_err)
-dat_dot = StringIO()
-tree.export_graphviz(classifier,out_file=dat_dot,feature_names=features2,
-    filled=True, rounded=True,special_characters=True)
-graph = pydotplus.graph_from_dot_data(dat_dot.getvalue())
-graph.write_pdf("LordTree.pdf")
-f1 = open('clf.pkl','wb')
-pickle.dump(classifier,f1)

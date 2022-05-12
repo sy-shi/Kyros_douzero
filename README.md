@@ -39,5 +39,9 @@ $ git push origin master
 ---
 
 ## Decision Tree
-- See detail in [**`decision_tree`**](https://github.com/sy-shi/Kyros_douzero/../../../../decision_tree/readme.md)
+- See detail in [**`decision_tree`**](https://github.com/sy-shi/Kyros_douzero/tree/main/decision_tree/readme.md)
+#### Viz of Decision Tree
+<img width="500" src="https://github.com/sy-shi/Kyros_douzero/tree/main/decision_tree/LordTree.pdf" alt="DTree" />
 
+#### Viz of Random Forest
+<img width="500" src="https://github.com/sy-shi/Kyros_douzero/tree/main/decision_tree/Tree_viz/LordTree_rdmT2.pdf" alt="RTree" />

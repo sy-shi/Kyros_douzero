@@ -2,11 +2,14 @@ from io import StringIO
 import pickle
 import numpy as np
 from feature_generator import FeatureGenerator
+from sklearn.ensemble import RandomForestRegressor
 from sklearn import tree
 import pydotplus
 import random
+import matplotlib.pyplot as plt
+
 np.set_printoptions(threshold = np.inf)
-f = open('output.pkl','rb')   ## Your pickle file path
+f = open('output.pkl','rb')
 info = pickle.load(f)
 print(len(info))
 
@@ -34,17 +37,36 @@ random.shuffle(feature2_list)
 random.shuffle(feature1_list)
 feature2_array = np.array(feature2_list)
 print(np.shape(feature2_array))
-cart = tree.DecisionTreeRegressor()
-classifier = cart.fit( feature2_array[0:100,1:27],feature2_array[0:100,0])
-y_predict = classifier.predict(feature2_array[1000:1030,1:27])
-ave_err = ((np.array(y_predict)-feature2_array[1000:1030,0])/feature2_array[1000:1030,0]).mean()
-print(y_predict)
-print(feature2_array[1000:1030,0])
+
+tree_num = 10
+rdmT = RandomForestRegressor(random_state=100,
+                            bootstrap=True,
+                            max_depth=4,
+                            max_features=4, ## log2
+                            min_samples_leaf=5,
+                            min_samples_split=8,
+                            n_estimators=tree_num)
+
+classifier=rdmT.fit(feature2_array[0:2000,1:27],feature2_array[0:2000,0])
+y_predict = classifier.predict(feature2_array[9000:9100,1:27])
+ave_err = ((np.array(y_predict)-feature2_array[9000:9100,0])/feature2_array[9000:9100,0]).mean()
 print(ave_err)
-dat_dot = StringIO()
-tree.export_graphviz(classifier,out_file=dat_dot,feature_names=features2,
-    filled=True, rounded=True,special_characters=True)
-graph = pydotplus.graph_from_dot_data(dat_dot.getvalue())
-graph.write_pdf("LordTree.pdf")
-f1 = open('clf.pkl','wb')
+
+index = 0
+for estimator in classifier.estimators_:
+    file_name = '.\Tree_viz\LordTree_rdmT' + str(index) + '.pdf'
+    index = index+1
+    dot_data = tree.export_graphviz(estimator,out_file=None,feature_names=features2,
+        filled=True, rounded=True,special_characters=True)
+    graph = pydotplus.graph_from_dot_data(dot_data)
+    graph.write_pdf(file_name)
+f1 = open('rdmT_clf.pkl','wb')
 pickle.dump(classifier,f1)
+
+importances = list(classifier.feature_importances_)
+plt.bar(features2, importances)
+plt.xticks(rotation=50)
+plt.ylabel('Importance')
+plt.xlabel('Features')
+plt.title('Feature Importance')
+plt.show()
